@@ -1,22 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://harveywxia.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-04-25T09:56:12.272Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://harveywxia.github.io"/>
-    <link rel="self" href="https://harveywxia.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://harveywxia.github.io/images/avatar.png</logo>
-    <icon>https://harveywxia.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
-    <entry>
-        <title type="html"><![CDATA[Django rest framework 使用笔记  ]]></title>
-        <id>https://harveywxia.github.io/post/django-rest-framework-shi-yong-bi-ji/</id>
-        <link href="https://harveywxia.github.io/post/django-rest-framework-shi-yong-bi-ji/">
-        </link>
-        <updated>2020-04-25T09:55:35.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="models层">models层</h2>
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Django rest framework 使用笔记   | Gridea</title>
+<link rel="shortcut icon" href="https://harveywxia.github.io/favicon.ico?v=1587808561388">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://harveywxia.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django rest framework 使用笔记   | Gridea - Atom Feed" href="https://harveywxia.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="models层
+models field
+在model中添加字段的格式一般为：  field_name = field_type(**field_options)
+field options(所有字段共用)
+
+null   默认为False..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://harveywxia.github.io">
+  <img class="avatar" src="https://harveywxia.github.io/images/avatar.png?v=1587808561388" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Django rest framework 使用笔记  
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-25
+              </span>
+              <span>
+                23 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="models层">models层</h2>
 <h3 id="models-field">models field</h3>
 <p>在model中添加字段的格式一般为：  field_name = field_type(**field_options)</p>
 <h4 id="field-options所有字段共用">field options(所有字段共用)</h4>
@@ -676,38 +753,159 @@ REST_FRAMEWORK = {
 </code></pre>
 <p><a href="https://blog.csdn.net/runnoob_1115/article/details/78506659">Django-restframework Pagination（分页）</a></p>
 <p><a href="https://www.django-rest-framework.org/api-guide/pagination/">Django-rest-framework pagination</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://harveywxia.github.io/post/hello-gridea/</id>
-        <link href="https://harveywxia.github.io/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
-]]></content>
-    </entry>
-</feed>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#models%E5%B1%82">models层</a>
+<ul>
+<li><a href="#models-field">models field</a>
+<ul>
+<li><a href="#field-options%E6%89%80%E6%9C%89%E5%AD%97%E6%AE%B5%E5%85%B1%E7%94%A8">field options(所有字段共用)</a></li>
+<li><a href="#models%E5%9F%BA%E7%A1%80%E5%AD%97%E6%AE%B5">models基础字段</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E5%AD%97%E6%AE%B5">关系字段</a>
+<ul>
+<li><a href="#foreignkeyothermodel-on_delete-options">ForeignKey(othermodel, on_delete, **options)</a></li>
+<li><a href="#manytomanyfieldothermodel-options">ManyToManyField(othermodel, **options)</a></li>
+<li><a href="#onetoonefieldothermodel-on_delete-parent_linkfalse-options">OneToOneField(othermodel, on_delete, parent_link=False, **options)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%AE%A4%E8%AF%81%E5%92%8C%E6%9D%83%E9%99%90">认证和权限</a>
+<ul>
+<li><a href="#django-rest-auth">django-rest-auth</a>
+<ul>
+<li><a href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86">用户管理</a>
+<ul>
+<li><a href="#%E7%99%BB%E9%99%86">登陆</a></li>
+<li><a href="#%E7%99%BB%E5%87%BA">登出</a></li>
+<li><a href="#%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81">重置密码</a></li>
+<li><a href="#%E7%A1%AE%E8%AE%A4%E5%AF%86%E7%A0%81">确认密码</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81">修改密码</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF">查询用户信息</a></li>
+<li><a href="#%E6%B3%A8%E5%86%8C">注册</a></li>
+<li><a href="#%E7%A1%AE%E8%AE%A4">确认</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81">自定义用户认证</a></li>
+</ul>
+</li>
+<li><a href="#%E9%94%99%E8%AF%AF">错误</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2">数据查询</a>
+<ul>
+<li><a href="#django-queryset">django queryset</a></li>
+<li><a href="#django_filter">django_filter</a></li>
+<li><a href="#%E5%A4%96%E9%94%AE-serializer">外键 serializer</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5">数据库连接</a>
+<ul>
+<li><a href="#django%E8%BF%9E%E6%8E%A5mongodb%E6%95%B0%E6%8D%AE%E5%BA%93">django连接mongodb数据库</a></li>
+<li><a href="#model-migrate-%E9%97%AE%E9%A2%98">model migrate 问题</a>
+<ul>
+<li><a href="#django-migrate-error-table-xxx-already-exists">django migrate error: table 'xxx' already exists</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB">数据库迁移</a>
+<ul>
+<li><a href="#slqlite3%E8%BF%81%E7%A7%BBmysql">slqlite3迁移mysql</a>
+<ul>
+<li><a href="#%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA%E4%B8%8E%E5%AF%BC%E5%85%A5%E7%AE%80%E5%8D%95%E7%9A%84%E8%BF%81%E7%A7%BB">简单的数据导出与导入（简单的迁移）</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BB%8Eview%E5%88%B0viewset">从view到viewset</a><br>
+*
+<ul>
+<li><a href="#%E5%88%86%E9%A1%B5">分页</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://harveywxia.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://harveywxia.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
