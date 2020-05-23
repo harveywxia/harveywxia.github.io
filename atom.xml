@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://harveywxia.github.io</id>
     <title>harvey</title>
-    <updated>2020-05-21T14:30:29.433Z</updated>
+    <updated>2020-05-23T12:51:46.241Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://harveywxia.github.io"/>
     <link rel="self" href="https://harveywxia.github.io/atom.xml"/>
@@ -10,6 +10,97 @@
     <logo>https://harveywxia.github.io/images/avatar.png</logo>
     <icon>https://harveywxia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, harvey</rights>
+    <entry>
+        <title type="html"><![CDATA[CentOS7安装redmine]]></title>
+        <id>https://harveywxia.github.io/post/centos7-an-zhuang-redmine/</id>
+        <link href="https://harveywxia.github.io/post/centos7-an-zhuang-redmine/">
+        </link>
+        <updated>2020-05-23T11:55:35.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="简介">简介</h2>
+<p>Redmine是用Ruby开发的基于web的项目管理软件，是用ROR框架开发的一套跨平台项目管理系统，通过“项目（Project）”的形式把成员、任务（问题）、文档、讨论以及各种形式的资源组织在一起，大家参与更新任务、文档等内容来推动项目的进度，同时系统利用时间线索和各种动态的报表形式来自动给成员汇报项目进度。</p>
+<h2 id="安装流程">安装流程</h2>
+<h3 id="docker环境安装">docker环境安装</h3>
+<h4 id="卸载旧版本">卸载旧版本</h4>
+<p>较旧的 Docker 版本称为 docker 或 docker-engine 。如果已安装这些程序，请卸载它们以及相关的依赖项。</p>
+<pre><code class="language-sh">$ sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+</code></pre>
+<h4 id="安装docker">安装docker</h4>
+<p><strong>依赖环境</strong><br>
+yum-utils 提供了 yum-config-manager ，并且 device mapper 存储驱动程序需要 device-mapper-persistent-data 和 lvm2。</p>
+<pre><code class="language-sh">$ sudo yum install -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2
+</code></pre>
+<p><strong>安装 Docker Engine-Community</strong><br>
+安装最新版本的 Docker Engine-Community 和 containerd.</p>
+<pre><code class="language-sh">$ sudo yum install docker-ce docker-ce-cli containerd.io
+</code></pre>
+<p><strong>启动 Docker</strong></p>
+<pre><code class="language-sh">$ sudo systemctl start docker
+</code></pre>
+<p><strong>测试</strong><br>
+通过运行 hello-world 映像来验证是否正确安装了 Docker Engine-Community 。</p>
+<pre><code class="language-sh">$ sudo docker run hello-world
+</code></pre>
+<p>运行以上命令会打印出hello-world。</p>
+<h4 id="安装docker-compose">安装docker-compose</h4>
+<p>这里选择使用pip安装，pip的安装过程这里不展开。<br>
+使用pip安装时建议使用<code>virtulenv</code>，运行以下命令安装：</p>
+<pre><code class="language-sh">pip install docker-compose
+</code></pre>
+<p>如果你不使用virtulenv，则需要运行以下命令，完成安装。</p>
+<pre><code class="language-sh">sudo pip install docker-compose
+</code></pre>
+<p><strong>测试</strong></p>
+<pre><code class="language-sh">docker-compose -version
+</code></pre>
+<p>会打印出相关版本信息。<br>
+<strong>参考</strong></p>
+<ul>
+<li><a href="https://docs.docker.com/compose/install/">Install Docker Compose</a></li>
+</ul>
+<h3 id="安装redmine">安装redmine</h3>
+<pre><code class="language-yaml">version: '3'
+services:
+  redmine:
+      image: redmine:4.1.1-alpine
+      restart: always
+      ports:
+          - '8080:3000'
+      environment:
+          REDMINE_DB_MYSQL: mysql
+          REDMINE_DB_PASSWORD: redminemysql
+          REDMINE_SECRET_KEY_BASE: supersecretkey
+      volumes:
+        - '/usr/harvey/docker/redmine/redmine_dir:/usr/src/redmine/files'
+
+  mysql:
+      image: mysql:8.0.20
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: redminemysql
+        MYSQL_DATABASE: redmine
+      volumes:
+        - '/usr/harvey/docker/redmine/mysql__dir:/var/lib/mysql'
+</code></pre>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="https://hub.docker.com/_/redmine">dockerhub-redmine</a></li>
+</ul>
+<h2 id="测试">测试</h2>
+<p>浏览器中输入以下网址，<br>
+http://localhost:8080/login<br>
+进入登录界面，默认用户名/密码：admin/admin</p>
+<p>开始你的redmine之旅吧。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Django rest framework 使用笔记  ]]></title>
         <id>https://harveywxia.github.io/post/django-rest-framework-shi-yong-bi-ji/</id>
