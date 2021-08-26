@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://harveywxia.github.io</id>
-    <title>harvey</title>
-    <updated>2020-05-23T12:51:46.241Z</updated>
+    <title>harvey的网络日志</title>
+    <updated>2021-08-26T12:58:43.457Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://harveywxia.github.io"/>
     <link rel="self" href="https://harveywxia.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://harveywxia.github.io/images/avatar.png</logo>
     <icon>https://harveywxia.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, harvey</rights>
+    <rights>All rights reserved 2021, harvey的网络日志</rights>
+    <entry>
+        <title type="html"><![CDATA[Redmine配置]]></title>
+        <id>https://harveywxia.github.io/post/redmine-pei-zhi/</id>
+        <link href="https://harveywxia.github.io/post/redmine-pei-zhi/">
+        </link>
+        <updated>2020-05-23T13:13:39.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="问题状态">问题状态</h3>
+<p>问题状态标签：新建问题、新建、进行中、已解决、反馈、已关闭、已拒绝、挂起。</p>
+<ul>
+<li><a href="https://www.cnblogs.com/biaopei/p/8891004.html">redmine添加自定义问题状态</a></li>
+</ul>
+<h3 id="跟踪标签">跟踪标签</h3>
+<p>跟踪标签：里程碑、任务、需求用例、功能、缺陷<br>
+项目中各跟踪标签的结构关系<br>
+<img src="https://harveywxia.github.io/post-images/1590239926975.jpg" alt="" loading="lazy"><br>
+说明：<br>
+　　1．  5个里程碑：需求分析、概要设计、功能开发、系统测试、系统部署<br>
+　　2． 在“需求分析”、“概要设计”、“系统测试”、“部署上线” 这几个里程碑中主要是以“任务”的形式指派给项目成员<br>
+　　3． “功能开发”这个里程碑中有涉及到“需求用例”“功能”“任务”“缺陷”<br>
+　　4.   若功能划分的不够细，则可将其以任务的形式再次划分。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[CentOS7安装redmine]]></title>
         <id>https://harveywxia.github.io/post/centos7-an-zhuang-redmine/</id>
