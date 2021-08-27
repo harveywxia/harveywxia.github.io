@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://harveywxia.github.io</id>
     <title>harvey的网络日志</title>
-    <updated>2021-08-27T07:35:48.223Z</updated>
+    <updated>2021-08-27T07:41:59.662Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://harveywxia.github.io"/>
     <link rel="self" href="https://harveywxia.github.io/atom.xml"/>
@@ -39,6 +39,7 @@
 <h2 id="参考资料">参考资料</h2>
 <ol>
 <li><a href="https://www.cnblogs.com/6b7b5fc3/p/12716218.html">Github Pages+Gridea搭建个人博客</a></li>
+<li><a href="https://www.jianshu.com/p/1520e4872a2c">「Gridea」给初接触者的一些使用技巧</a></li>
 </ol>
 ]]></content>
     </entry>
