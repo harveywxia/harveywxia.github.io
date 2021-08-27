@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://harveywxia.github.io</id>
     <title>harvey的网络日志</title>
-    <updated>2021-08-27T06:17:13.477Z</updated>
+    <updated>2021-08-27T07:35:48.223Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://harveywxia.github.io"/>
     <link rel="self" href="https://harveywxia.github.io/atom.xml"/>
@@ -10,6 +10,38 @@
     <logo>https://harveywxia.github.io/images/avatar.png</logo>
     <icon>https://harveywxia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, harvey的网络日志</rights>
+    <entry>
+        <title type="html"><![CDATA[Github搭建个人主页]]></title>
+        <id>https://harveywxia.github.io/post/github-da-jian-ge-ren-zhu-ye/</id>
+        <link href="https://harveywxia.github.io/post/github-da-jian-ge-ren-zhu-ye/">
+        </link>
+        <updated>2021-08-27T06:27:39.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="概述">概述</h2>
+<p>GitHub Pages可以用来托管个人静态网站，便于用来实现博客。</p>
+<h2 id="准备工作">准备工作</h2>
+<ul>
+<li>Gthub账号</li>
+<li>域名(可选)</li>
+</ul>
+<h2 id="github-pages">Github Pages</h2>
+<p>新建一个仓库，命名格式如下：</p>
+<pre><code>{用户明}.github.io
+</code></pre>
+<p>需要选择public（公开）<br>
+进入到该仓库的setting菜单（在star下面）中。可以选择并开启。<br>
+此时在浏览器中即可访问页面，但是如果想更好的管理，可以使用Gridea。</p>
+<h2 id="gridea">Gridea</h2>
+<p>Gridea是一个静态博客写作客户端，所有文件都在本地，没有数据库，实现简单，支持Markdown。<br>
+官网下载Gridea，安装并进入设置页面<br>
+<img src="https://harveywxia.github.io/post-images/1630046301998.png" alt="" loading="lazy"></p>
+<p>域名与仓库名一样,分支填master,email自己填,这里说一下Token.打开设置中的开发者设置:<br>
+右上角头像--&gt;Settings --&gt;Developer settings --&gt;Personal access tokens--&gt;Generate token  勾选repo然后复制token即可。</p>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a href="https://www.cnblogs.com/6b7b5fc3/p/12716218.html">Github Pages+Gridea搭建个人博客</a></li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Redmine配置]]></title>
         <id>https://harveywxia.github.io/post/redmine-pei-zhi/</id>
