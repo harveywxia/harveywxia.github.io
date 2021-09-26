@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://harveywxia.github.io</id>
     <title>harvey的网络日志</title>
-    <updated>2021-08-27T08:45:03.003Z</updated>
+    <updated>2021-09-26T03:05:54.722Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://harveywxia.github.io"/>
     <link rel="self" href="https://harveywxia.github.io/atom.xml"/>
@@ -10,6 +10,311 @@
     <logo>https://harveywxia.github.io/images/avatar.png</logo>
     <icon>https://harveywxia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, harvey的网络日志</rights>
+    <entry>
+        <title type="html"><![CDATA[SpaCy基于规则的匹配--TokenMatcher]]></title>
+        <id>https://harveywxia.github.io/post/spacy-ji-yu-gui-ze-de-pi-pei-tokenmatcher/</id>
+        <link href="https://harveywxia.github.io/post/spacy-ji-yu-gui-ze-de-pi-pei-tokenmatcher/">
+        </link>
+        <updated>2021-09-26T02:53:02.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="基于规则的匹配">基于规则的匹配</h4>
+<p>查找短语和单词，并匹配实体<br>
+在原始文本上使用正则表达式匹配，spaCy的基于规则的匹配器引擎和组件不仅可以找到所需的单词和短语，还可以让您访问文档中的词及其相互关系。这意味着您可以轻松访问和分析周围的词，将跨度合并为单个词或加入到<code>doc.ents</code>中的命名实体中。</p>
+<blockquote>
+<p><strong>我应该使用规则还是训练一模型模型？</strong><br>
+对于复杂的任务，通常最好训练一个基于统计的命名实体识别模型。但是，统计模型需要训练数据，因此在许多情况下，基于规则的方法更实用。在项目初始阶段尤其如此：你可以使用基于规则的方法作为数据收集过程的一部分，以帮助您“引导”统计模型。</p>
+</blockquote>
+<blockquote>
+<p>如果您有一些示例并且希望您的系统能够基于这些示例进行泛化（generalize），那么就应该训练模型。如果在当前上下文有线索，它会更加有效。例如，如果您尝试检测人名或公司名称，您的应用程序可能会受益于统计命名实体识别模型。</p>
+</blockquote>
+<blockquote>
+<p>如果你想在数据中查找有限数量的示例，那么基于规则的系统就是一个很好的选择，或者你可以找到一个词规则或者正则表达式来准确的表达一个模式<br>
+。例如，你可以通过基于规则的方法很好地处理国家名称、<code>IP</code>地址或<code>URL</code>等。</p>
+</blockquote>
+<blockquote>
+<p>您还可以将这两种方法结合使用，可以使用规则改进统计模型，以处理非常具体的情况并提高准确性。有关详细信息，请参阅<a href="https://spacy.io/usage/rule-based-matching#entityruler">基于规则的实体识别部分</a>。</p>
+</blockquote>
+<blockquote>
+<p><strong>什么时候应该使用词匹配器(Matcher)和短语匹配器？</strong><br>
+如果你已经拥有一个大型术语列表或一个由单个或多个token语组成的地名录，此时你想找到一个确切的实例，那么<code>PhraseMacher</code>就非常有用。<br>
+从<code>spaCy v2.1.0</code>开始，您还可以通过<code>LOWER</code>属性进行快速且不区分大小写的匹配。</p>
+</blockquote>
+<blockquote>
+<p>Matcher没有<code>PhraseMatcher</code>那么快，因为他会比较所有token的属性。但是，它允许你使用模型预测的词汇属性和语言特征为正在寻找的tokens编写一个非常抽象的表示。例如，你可以查找一个跟在“love”或“like”动词后，或可选限定符或者一个不少于10个字符的token后的名词，</p>
+</blockquote>
+<h5 id="token-based匹配"><code>Token-based</code>匹配</h5>
+<p>spaCy自带规则匹配引擎<code>Matcher</code>, 对tokens的操作类似于正则表达式。规则可以引用token注释（例如标记text或tag_，或者如IS_PUNCT的标志）。规则匹配器还允许您传入自定义回调以处理匹配项 - 例如，可以合并实体和应用自定义标签。您还可以将模式与实体<code>ID</code>相关联，以允许进行一些基本的实体链接或消歧。要匹配大型术语列表，您可以使用 <code>PhraseMatcher</code>，它接受<code>Doc</code>对象作为匹配模式。</p>
+<h6 id="添加模式">添加模式</h6>
+<p>假设我们想让 spaCy 找到三个token的组合：</p>
+<ol>
+<li>小写形式与“hello”匹配的token，例如“Hello”或“HELLO”。</li>
+<li><code>is_punct</code>标记设置为True的标记，即任何标点符号。</li>
+<li>小写形式与“world”匹配的标记，例如“World”或“WORLD”。</li>
+</ol>
+<pre><code>[{&quot;LOWER&quot;: &quot;hello&quot;}, {&quot;IS_PUNCT&quot;: True}, {&quot;LOWER&quot;: &quot;world&quot;}]
+</code></pre>
+<blockquote>
+<p><strong>!!!重要的提示</strong><br>
+在编写模式时，记住每个字典代表一个token。如果 spaCy 的分词处理与模式中定义的token不匹配，则该模式不会产生任何结果。在开发复杂模式时，请确保根据 spaCy 的标记化检查示例：</p>
+<pre><code>doc = nlp(&quot;A complex-example,!&quot;)
+print([token.text for token in doc])
+</code></pre>
+</blockquote>
+<p>首先，我们用一个词汇来初始化Matcher。匹配器必须始终与其操作的文档共享相同的词汇。我们现在可以调用<code>matcher.add()</code>并传入一个<code>ID</code>和一个模式列表作为参数。<br>
+<code>spaCy v 3.0 · Python 3 基于 Binder</code></p>
+<pre><code class="language-python">import spacy
+from spacy.matcher import Matcher
+
+nlp = spacy.load(&quot;en_core_web_sm&quot;)
+matcher = Matcher(nlp.vocab)
+# Add match ID &quot;HelloWorld&quot; with no callback and one pattern
+pattern = [{&quot;LOWER&quot;: &quot;hello&quot;}, {&quot;IS_PUNCT&quot;: True}, {&quot;LOWER&quot;: &quot;world&quot;}]
+# 将会匹配到“hello”+“标点”+“world”
+matcher.add(&quot;HelloWorld&quot;, [pattern])
+
+doc = nlp(&quot;Hello, world! Hello world!&quot;)
+matches = matcher(doc)
+for match_id, start, end in matches:
+    string_id = nlp.vocab.strings[match_id]  # Get string representation
+    span = doc[start:end]  # The matched span
+    print(match_id, string_id, start, end, span.text)
+</code></pre>
+<p>结果：<br>
+<code>15578876784678163569 HelloWorld 0 3 Hello, world</code></p>
+<p>匹配器返回一个(match_id, start, end)元组的列表——在本例中就是[('15578876784678163569', 0, 3)]，它映射到我们原始文档的<code>doc[0:3]</code>。该<code>match_id</code>是字符串ID的“HelloWorld”的散列值的。要获取字符串值，你可以在StringStore中查询。</p>
+<pre><code class="language-python">for match_id, start, end in matches:
+    string_id = nlp.vocab.strings[match_id]  # 'HelloWorld'
+    span = doc[start:end]                    # The matched span
+</code></pre>
+<p>或者，我们还可以选择添加多个模式，例如，还可以匹配“hello”和“world”之间没有标点符号的序列：</p>
+<pre><code class="language-python">patterns = [
+    [{&quot;LOWER&quot;: &quot;hello&quot;}, {&quot;IS_PUNCT&quot;: True}, {&quot;LOWER&quot;: &quot;world&quot;}],
+    [{&quot;LOWER&quot;: &quot;hello&quot;}, {&quot;LOWER&quot;: &quot;world&quot;}]
+]
+matcher.add(&quot;HelloWorld&quot;, patterns)
+</code></pre>
+<p>默认情况下，匹配器将只返回匹配项而不执行任何其他操作，例如合并实体或分配标签。这完全取决于您，你可以通过向add()函数传入不同的回调函数作为on_match参数来单独定义每个模式。这很有用，因为它允许您编写完全自定义和模式特定的逻辑。例如，您可能希望将一些模式合并为一个token，同时为其他模式类型添加实体标签。这个时候你不必为每个进程创建不同的匹配器。</p>
+<h6 id="可用的token属性">可用的token属性</h6>
+<p>可用的Token模式键对应于许多 Token 属性. 基于规则的匹配支持的属性有：</p>
+<table>
+<thead>
+<tr>
+<th>ATTRIBUTE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ORTH</td>
+<td>准确的Token逐字文本. <strong>TYPE</strong>:str</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>准确的Token逐字文本. <strong>TYPE</strong>:str</td>
+</tr>
+<tr>
+<td>LOWER</td>
+<td>Token文本的小写形式.<strong>TYPE</strong>:str</td>
+</tr>
+<tr>
+<td>LENGTH</td>
+<td>Token文本的长度.<strong>TYPE</strong>:int</td>
+</tr>
+<tr>
+<td>IS_ALPHA, IS_ASCII, IS_DIGIT</td>
+<td>Token文本由字母字符、ASCII 字符、数字组成.<strong>TYPE</strong>:bool</td>
+</tr>
+<tr>
+<td>IS_LOWER, IS_UPPER, IS_TITLE</td>
+<td>Token文本是小写、大写、标题.<strong>TYPE</strong>:bool</td>
+</tr>
+<tr>
+<td>IS_PUNCT, IS_SPACE, IS_STOP</td>
+<td>Token文本是标点符号、空格、停止词.<strong>TYPE</strong>:bool</td>
+</tr>
+<tr>
+<td>IS_SENT_START</td>
+<td>Token是句子的开始.<strong>TYPE</strong>:bool</td>
+</tr>
+<tr>
+<td>LIKE_NUM, LIKE_URL, LIKE_EMAIL</td>
+<td>Token文本类似于数字、URL、电子邮件.<strong>TYPE</strong>:bool</td>
+</tr>
+<tr>
+<td>SPACY</td>
+<td>Token有一个结尾空格.<strong>TYPE</strong>:bool</td>
+</tr>
+<tr>
+<td>POS, TAG, MORPH, DEP, LEMMA, SHAPE</td>
+<td>令牌的简单和扩展词性标签、形态分析、依赖标签、词根、形状（shape）。请注意，这些属性的值区分大小写。有关可用词性标签和依赖项标签的列表，请参阅<a href="https://spacy.io/api/annotation">注释规范</a>。 <strong>TYPE</strong>:str</td>
+</tr>
+<tr>
+<td>ENT_TYPE</td>
+<td>Token的实体标签。 <strong>TYPE</strong>:str</td>
+</tr>
+<tr>
+<td>_</td>
+<td><a href="https://spacy.io/usage/processing-pipelines#custom-components-attributes">自定义扩展属性</a>的属性. <strong>TYPE</strong>:Dict[str, Any]</td>
+</tr>
+<tr>
+<td>OP</td>
+<td>运算符和量词，限定Token模式的匹配次数。<strong>TYPE</strong>:str</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>属性名称区分大小写吗？</strong><br>
+不区分。spaCy会进行名称规范化处理，<code>{&quot;LOWER&quot;: &quot;text&quot;}</code>和<code>{&quot;lower&quot;: &quot;text&quot;}</code>会得到相同的结果。使用大写版本主要是一种约定，以明确这些属性是“特殊的”并且不完全映射到像Token.lower和Token.lower_这样的标记属性 。</p>
+</blockquote>
+<blockquote>
+<p><strong>为什么不支持所有Token属性？</strong><br>
+<code>spaCy</code>无法提供对所有属性的访问，因为Matcher循环遍历<code>Cython</code>数据，而不是<code>Python</code>对象。在匹配器内部，我们正在处理一个<code>TokenC struct</code> – 我们没有<code>Token</code>实例. 这意味着所有引用计算属性的属性都无法访问。</p>
+</blockquote>
+<p>大写的属性名称类似于<code>LOWER</code>或<code>IS_PUNCT</code>引用自<code>spacy.attrs</code>枚举表。它们被传递到一个本质上是一个大<code>case/switch</code>语句的函数中，以确定要返回的结构字段。相同的属性标识符用于<code>Doc.to_array</code>，以及代码中需要描述此类字段的其他一些地方。</p>
+<blockquote>
+<p>提示：试用交互式匹配器<br>
+<a href="https://explosion.ai/demos/matcher">匹配器演示</a><br>
+该交互式匹配器通过创建基于规则的匹配起并在你的文本上运行他们来测试你的的Matcher。每个Token可以设置多个属性，如文本值、词性标记或布尔标志。基于token的视图可以让你看到spaCy是如何处理您的文本的，以及为什么可以成功匹配，或者为什么无法匹配。</p>
+</blockquote>
+<h6 id="扩展模式语法和属性">扩展模式语法和属性</h6>
+<p>Token模式也可以映射到属性字典，而不仅仅是映射到单个值。例如，指定词根的值应该是值列表的一部分，或设置最小字符长度。可用的属性如下表：</p>
+<pre><code class="language-python">例子
+# Matches &quot;love cats&quot; or &quot;likes flowers&quot;
+pattern1 = [{&quot;LEMMA&quot;: {&quot;IN&quot;: [&quot;like&quot;, &quot;love&quot;]}},
+            {&quot;POS&quot;: &quot;NOUN&quot;}]
+
+# Matches tokens of length &gt;= 10
+pattern2 = [{&quot;LENGTH&quot;: {&quot;&gt;=&quot;: 10}}]
+
+# Match based on morph attributes
+pattern3 = [{&quot;MORPH&quot;: {&quot;IS_SUBSET&quot;: [&quot;Number=Sing&quot;, &quot;Gender=Neut&quot;]}}]
+# &quot;&quot;, &quot;Number=Sing&quot; and &quot;Number=Sing|Gender=Neut&quot; will match as subsets
+# &quot;Number=Plur|Gender=Neut&quot; will not match
+# &quot;Number=Sing|Gender=Neut|Polite=Infm&quot; will not match because it's a superset
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IN</td>
+<td>属性值是列表的成员。<strong>TYPE</strong>:Any</td>
+</tr>
+<tr>
+<td>NOT_IN</td>
+<td>属性值不是列表的成员。<strong>TYPE</strong>:Any</td>
+</tr>
+<tr>
+<td>IS_SUBSET</td>
+<td>属性值（用于<code>MORPH</code>或自定义列表属性）是列表的子集。<strong>TYPE</strong>:Any</td>
+</tr>
+<tr>
+<td>IS_SUPERSET</td>
+<td>属性值（用于<code>MORPH</code>或自定义列表属性）是列表的超集。<strong>TYPE</strong>:Any</td>
+</tr>
+<tr>
+<td>INTERSECTS</td>
+<td>属性值（用于<code>MORPH</code>或自定义列表属性）与列表具有非空交集。</td>
+</tr>
+</tbody>
+</table>
+<p>Any<br>
+==, &gt;=, &lt;=, &gt;, &lt;|	属性值等于、大于或等于、小于或等于、大于或小于。<strong>TYPE</strong>:Union[int, float]</p>
+<h6 id="常用表达式">常用表达式</h6>
+<p>在某些情况下，仅匹配token和token属性是不够的——例如，你可能希望匹配一个单词的不同拼写，而想为每个拼写添加新模式。</p>
+<pre><code>pattern = [{&quot;TEXT&quot;: {&quot;REGEX&quot;: &quot;^[Uu](\.?|nited)$&quot;}},
+           {&quot;TEXT&quot;: {&quot;REGEX&quot;: &quot;^[Ss](\.?|tates)$&quot;}},
+           {&quot;LOWER&quot;: &quot;president&quot;}]
+</code></pre>
+<p>该<code>REGEX</code>操作允许你为任何属性定义规则，包括自定义属性。它始终需要应用于像TEXT,LOWER或TAG 之类的属性：</p>
+<pre><code class="language-python"># Match different spellings of token texts
+pattern = [{&quot;TEXT&quot;: {&quot;REGEX&quot;: &quot;deff?in[ia]tely&quot;}}]
+
+# Match tokens with fine-grained POS tags starting with 'V'
+pattern = [{&quot;TAG&quot;: {&quot;REGEX&quot;: &quot;^V&quot;}}]
+
+# Match custom attribute values with regular expressions
+pattern = [{&quot;_&quot;: {&quot;country&quot;: {&quot;REGEX&quot;: &quot;^[Uu](nited|\.?) ?[Ss](tates|\.?)$&quot;}}}]
+</code></pre>
+<blockquote>
+<p><strong>!!!重要的提示</strong><br>
+使用<code>REGEX</code>运算符时，请记住它对单个标记token而不是整个文本进行操作。每个表达式都将匹配一个token。如果您需要对整个文本进行匹配，请参阅有关对<a href="https://spacy.io/usage/rule-based-matching#regex-text">整个文本进行正则表达式匹配的详细信息</a> 。</p>
+</blockquote>
+<h6 id="全文匹配正则表达式">全文匹配正则表达式</h6>
+<p>如果您的表达式适用于多个标记，一个简单的解决方案是匹配doc.textwithre.finditer并使用 Doc.char_spanSpan从匹配的字符索引创建 a 的方法。如果匹配的字符没有映射到一个或多个有效Token，则<code>Doc.char_span</code>返回<code>None</code>。</p>
+<blockquote>
+<p><strong>什么是有效的令牌序列？</strong><br>
+在该示例中，表达式也将匹配&quot;US&quot;在&quot;USA&quot;。但是， &quot;USA&quot;是单个标记，而<code>Span</code>对象是Token序列。所以 &quot;US&quot;不能是它自己的span，因为它没有在token边界上结束。</p>
+</blockquote>
+<pre><code class="language-python">import spacy
+import re
+
+nlp = spacy.load(&quot;en_core_web_sm&quot;)
+doc = nlp(&quot;The United States of America (USA) are commonly known as the United States (U.S. or US) or America.&quot;)
+
+expression = r&quot;[Uu](nited|\.?) ?[Ss](tates|\.?)&quot;
+for match in re.finditer(expression, doc.text):
+    start, end = match.span()
+    span = doc.char_span(start, end)
+    # This is a Span object or None if match doesn't map to valid token sequence
+    if span is not None:
+        print(&quot;Found match:&quot;, span.text)
+</code></pre>
+<p>结果</p>
+<pre><code>Found match: United States
+Found match: United States
+Found match: U.S.
+Found match: US
+</code></pre>
+<p><strong>如何将match扩展为有效的令牌序列？</strong><br>
+在某些情况下，您可能希望将匹配扩展到最近的token边界，你就需要为 &quot;USA&quot;创建一个span，即使只子串&quot;US&quot;会被匹配。您可以使用文档中tokens的字符偏移量（Token.idx](https://spacy.io/api/token#attributes)）来计算它，可作为 .。这样你就可以个创建一个列表包含有效token的开始和结束边界，并给你留下一个基础的算法问题：给定一个数字，找到下一个最小数（token开始）或下一个最大数（token结束）。这将是最接近有效token的边界。</p>
+<p>有很多实现方法，最直接的方法是在Doc中创建一个基于字符的字典表，索引到所在的token中。它易于编写且不易出错，并为您提供恒定的查找时间：您只需为每个Doc创建一次词典。</p>
+<pre><code>chars_to_tokens = {}
+for token in doc:
+    for i in range(token.idx, token.idx + len(token.text)):
+        chars_to_tokens[i] = token.i
+</code></pre>
+<p>然后，您可以在给定位置查找字符，并获取该字符所属的相应token的索引。你的span就是doc[token_start:token_end]。 如果字符不在<code>dict</code>中，则意味着它是（white）空格token被拆分的。不过，这希望不应该发生，因为这意味着您的正则表达式正在生成包含前导或后续空格的匹配项。</p>
+<pre><code class="language-python">span = doc.char_span(start, end)
+if span is not None:
+    print(&quot;Found match:&quot;, span.text)
+else:
+    start_token = chars_to_tokens.get(start)
+    end_token = chars_to_tokens.get(end)
+    if start_token is not None and end_token is not None:
+        span = doc[start_token:end_token + 1]
+        print(&quot;Found closest match:&quot;, span.text)
+</code></pre>
+<h6 id="运算符和量词">运算符和量词</h6>
+<p>匹配器还允许您使用指定为'OP'键的量词。量词让您定义要匹配的token序列，例如一个或多个标点符号，或指定可选token。请注意，不能使用嵌套或作用域量词——你可以使用<code>on_match</code>回调来实现。</p>
+<table>
+<thead>
+<tr>
+<th>OP运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>否定模式，要求它精确匹配 0 次。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>使模式可选，允许它匹配 0 次或 1 次</td>
+</tr>
+</tbody>
+</table>
+<p>+｜要求模式匹配 1 次或多次。<br>
+*｜	允许模式匹配零次或多次。</p>
+<pre><code class="language-python">pattern = [{&quot;LOWER&quot;: &quot;hello&quot;},
+           {&quot;IS_PUNCT&quot;: True, &quot;OP&quot;: &quot;?&quot;}]
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Github搭建个人主页]]></title>
         <id>https://harveywxia.github.io/post/github-da-jian-ge-ren-zhu-ye/</id>
@@ -167,7 +472,7 @@ http://localhost:8080/login<br>
 <p>在model中添加字段的格式一般为：  field_name = field_type(**field_options)</p>
 <h4 id="field-options所有字段共用">field options(所有字段共用)</h4>
 <ol>
-<li>null   默认为False，True则表示可以为null。（空字符串在数据库中可能被存储为''）</li>
+<li>null   默认为False，True则表示可以为null。（空字符串在数据库中可能被存储为''）。</li>
 <li>blank  默认为False，True表示可以为空。</li>
 <li>choice  可选的，限制了该选项的字段值必须是所指定的choice中的一个。</li>
 </ol>
